@@ -48,31 +48,33 @@ class App extends React.Component {
     // console.log('City Data:', this.state.cityData);
     // console.log('Error:', this.state.error);
     // console.log('Error Message:', this.state.errorMessage);
- 
 
-  return (
-    <>
-      <h1>City Explorer</h1>
-      <ul><div>
-        {this.state.cityData.display_name}
-        {this.state.cityData.lat}
-        {this.state.cityData.lon}
-        </div></ul>
 
-      <form id="form" onSubmit={this.submitCityHandler}>
-        <label>
-          
-          {""}
-          Pick a City:
-          <input type="text" onInput={this.handleCityInput} /> 
-        </label>
-        <button type="submit">Explore!!</button>
-      </form>
-      
-    </>
-  )
+    return (
+      <>
+        <h1>City Explorer</h1>
+        <ul>
+          <div>
+            {this.state.cityData.display_name}
+            {this.state.cityData.lat}
+            {this.state.cityData.lon}
+          </div>
+        </ul>
 
-}
+        <form id="form" onSubmit={this.submitCityHandler}>
+          <label>
+
+            {""}
+            Pick a City:
+            <input type="text" onInput={this.handleCityInput} />
+          </label>
+          <button type="submit">Explore!!</button>
+        </form>
+
+      </>
+    )
+
+  }
 }
 
 export default App;
