@@ -19,9 +19,11 @@ class App extends React.Component {
     try {
       let url = `https://us1.locationiq.com/v1/search?key=${API_KEY}&q=${this.state.city}&format=json`;
       console.log('URL:', url);
+
       let cityInfo = await axios.get(url);
       this.setState({
         cityData: cityInfo.data[0],
+
         error: false,
       });
     } catch (error) {
@@ -29,7 +31,7 @@ class App extends React.Component {
         error: true,
         errorMessage: `an error occured: ${error.response.status}`,
       });
-      console.log('Error:', error);
+      // console.log('Error:', error);
     }
   }
 
@@ -41,17 +43,21 @@ class App extends React.Component {
 
   render() {
     let cityData = Object.entries(this.state.cityData).map(([key, value], index) => {
-      return <li key={index}>{value.name}</li>
+      return <li key={index}>{value.display_name}</li>
     });
-    console.log('City Data:', this.state.cityData);
-    console.log('Error:', this.state.error);
-    console.log('Error Message:', this.state.errorMessage);
-  console.log("city", this.state.cityData);
+    // console.log('City Data:', this.state.cityData);
+    // console.log('Error:', this.state.error);
+    // console.log('Error Message:', this.state.errorMessage);
+ 
 
   return (
     <>
       <h1>City Explorer</h1>
-      <ul>{cityData}</ul>
+      <ul><div>
+        {this.state.cityData.display_name}
+        {this.state.cityData.lat}
+        {this.state.cityData.lon}
+        </div></ul>
 
       <form id="form" onSubmit={this.submitCityHandler}>
         <label>
@@ -62,6 +68,7 @@ class App extends React.Component {
         </label>
         <button type="submit">Explore!!</button>
       </form>
+      
     </>
   )
 
