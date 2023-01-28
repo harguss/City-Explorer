@@ -40,11 +40,11 @@ class App extends React.Component {
       city: event.target.value,
     });
   };
-
+git 
   render() {
-    let cityData = Object.entries(this.state.cityData).map(([key, value], index) => {
-      return <li key={index}>{value.display_name}</li>
-    });
+    // let cityData = Object.entries(this.state.cityData).map(([key, value], index) => {
+    //   return <li key={index}>{value.display_name}</li>
+    // });
     // console.log('City Data:', this.state.cityData);
     // console.log('Error:', this.state.error);
     // console.log('Error Message:', this.state.errorMessage);
