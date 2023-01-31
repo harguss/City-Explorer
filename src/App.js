@@ -33,9 +33,9 @@ class App extends React.Component {
         displayMap: true,
         error: false,
       },
-        // () => {
-        //   this.getMapData();
-        // }
+        () => {
+          this.getMapData();
+        }
       );
     } catch (error) {
       this.setState({
@@ -72,9 +72,9 @@ class App extends React.Component {
 
   render() {
 
-    // Object.entries(this.state.cityData).map(([key, value], index) => {
-    //   return <li key={index}>{value.display_name}</li>
-    // });
+    Object.entries(this.state.cityData).map(([key, value], index) => {
+      return <li key={index}>{value.display_name}</li>
+    });
     //  console.log('display map', this.state.displayMap);
     //  console.log('City Data:', this.state.cityData);
     // console.log('Error:', this.state.error);
@@ -85,12 +85,12 @@ class App extends React.Component {
       <>
         <h1>City Explorer</h1>
         <ul>
-          {/* <div>
+          <div>
             {this.state.cityData.display_name}
             {this.state.cityData.lat}
             {this.state.cityData.lon}
             {this.state.displayMap}
-          </div> */}
+          </div>
         </ul>
 
         <form id="form" onSubmit={this.submitCityHandler}>
@@ -103,10 +103,10 @@ class App extends React.Component {
           <button type="submit">Explore!!</button>
         </form>
 
-        {/* {
+        {
         this.state.mapData && 
          <img src={this.state.mapData} alt={this.state.city} />
-        } */}
+        }
       </>
     );
 
