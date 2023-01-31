@@ -23,7 +23,7 @@ class App extends React.Component {
     event.preventDefault();
     try {
       let url = `https://us1.locationiq.com/v1/search?key=${API_KEY}&q=${this.state.city}&format=json`;
-      console.log('URL:', url);
+      // console.log('URL:', url);
 
       let cityInfo = await axios.get(url);
       this.setState({
