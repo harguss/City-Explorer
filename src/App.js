@@ -54,7 +54,7 @@ class App extends React.Component {
 
   getMapData = async () => {
     console.log('did we get state set ?',this.state.lat);
-    let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${process.env.REACT_APP_LOCATION_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&size=${window.innerWidth}x300&format=jpg&zoom=12`;
+    let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&size=${window.innerWidth}x300&format=jpg&zoom=12`;
     
     console.log("🚀 ~ file: App.js:58 ~ App ~ getMapData= ~ mapURL", mapURL);
 
