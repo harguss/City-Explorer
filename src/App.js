@@ -3,7 +3,7 @@ import "./App.css";
 import axios from "axios";
 
 let API_KEY = process.env.REACT_APP_LOCATION_KEY;
-console.log("🚀 ~ file: App.js:6 ~ API_KEY", API_KEY)
+// console.log("🚀 ~ file: App.js:6 ~ API_KEY", API_KEY); 
 
 class App extends React.Component {
   constructor(props) {
@@ -22,7 +22,7 @@ class App extends React.Component {
     event.preventDefault();
     try {
       let url = `https://us1.locationiq.com/v1/search?key=${API_KEY}&q=${this.state.city}&format=json`;
-      console.log('URL:', url);
+      // console.log('URL:', url);
 
       let cityInfo = await axios.get(url);
       console.log("🚀 ~ file: App.js:27 ~ App ~ submitCityHandler= ~ cityInfo", cityInfo);
