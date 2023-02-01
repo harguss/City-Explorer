@@ -27,7 +27,7 @@ class App extends React.Component {
       let cityInfo = await axios.get(url);
       console.log("🚀 ~ file: App.js:27 ~ App ~ submitCityHandler= ~ cityInfo", cityInfo);
       console.log('go keep going');
-      
+
       this.setState({
         cityData: cityInfo.data[0],
         displayMap: true,
@@ -55,12 +55,12 @@ class App extends React.Component {
   };
 
   getMapData = async () => {
-    console.log('did we get state set ?',this.state.lat);
+    console.log('did we get state set ?', this.state.lat);
     let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&size=${window.innerWidth}x300&format=jpg&zoom=12`;
-    
+
     // console.log("🚀 ~ file: App.js:58 ~ App ~ getMapData= ~ mapURL", mapURL);
 
-    
+
     let mapDataResponse = await axios.get(mapURL);
     // control + option then click L 
     // console.log("🚀 ~ file: App.js:62 ~ App ~ getMapData= ~ mapDataResponse", mapDataResponse);
@@ -68,6 +68,25 @@ class App extends React.Component {
     this.setState({
       mapData: mapDataResponse.config.url,
     });
+    // Find weather data!
+    this.displayWeather(this.state.cityData.lat, this.state.cityData.lon)
+  }
+  displayWeather = async (lat, lon, searchQuery) => {
+    try {
+      console.log('display weather', lat, lon);
+      
+      let weather = await axios.get(`${process.env.REACT_APP_API_URL}/weather`,
+        {
+          params: {
+            latitude: lat,
+            longitude: lon,
+            searchQuery: searchQuery
+          }
+        });
+    } catch (error) {
+      console.log(error);
+
+    }
   }
 
   render() {
@@ -104,8 +123,8 @@ class App extends React.Component {
         </form>
 
         {
-        this.state.mapData && 
-         <img src={this.state.mapData} alt={this.state.city} />
+          this.state.mapData &&
+          <img src={this.state.mapData} alt={this.state.city} />
         }
       </>
     );
