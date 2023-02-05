@@ -1,7 +1,10 @@
 import React from "react";
 import "./App.css";
 import axios from "axios";
-import { Card } from 'react-bootstrap';
+// import { Card } from 'react-bootstrap';
+// import Image from 'react-bootstrap/Image
+
+
 
 let API_KEY = process.env.REACT_APP_LOCATION_KEY;
 
@@ -12,10 +15,11 @@ class App extends React.Component {
       city: "",
       cityData: {},
       mapData: '',
+      weatherData: [],
       displayMap: false,
       displayError: false,
       errorMessage: "",
-      weatherData: []
+      
     }
   }
 
@@ -66,18 +70,26 @@ class App extends React.Component {
 
 
   displayWeather = async (lat, lon, searchQuery) => {
-    try {
-      let weather = await axios.get(`${process.env.REACT_APP_API_URL}/weather`, { params: { latitude: lat, longitude: lon, searchQuery: searchQuery } });
-      this.setState({
-        weatherData: weather.data,
+      console.log(lat, lon, searchQuery);
+
+      let weather = await axios.get(`${process.env.REACT_APP_API_URL}/weather`,
+      { params: {  
+          latitude: lat,
+          longitude: lon,
+          searchQuery: searchQuery 
+        } 
       });
-    } catch (error) {
-      console.log(error);
-    }
+     console.log('did we get back from the server?',weather);
+    //   // this.setState({
+    //   //   weatherData: weather.data,
+    //   // });
+    // } catch (error) {
+    //   console.log(error);
+    // }
   };
   ///////
   //   getMovieData = async (search) => {
-  //   const results = await axios.get(`${API_KEY}/movieData`, {params: {
+  //   const results = await axios.get(`${https://api.themoviedb.org/3/search/movie/?api_key=<{MOVIE_API_KEY}>&language=en-US&page=1&query=seattle}/movieData`, {params: {
   //       search,
   //   }
   // })
@@ -99,6 +111,7 @@ class App extends React.Component {
 
 
     return (
+      
       <>
         <h1>City Explorer</h1>
         <ul>
@@ -123,17 +136,14 @@ class App extends React.Component {
           this.state.mapData && <img src={this.state.mapData} alt={this.state.city} />
         } */}
 
-        {/* {
-          this.state.mapData && 
-          <div className="d-flex align-items-center">
-            <img src={this.state.mapData} alt={this.state.city} className="rounded-circle" />
-          </div>
-        } */}
-         <div>
-          <Card style={{ width: '20rem', borderRadius: '50%' }}>
-            <Card.Img variant="top" src={this.state.mapData} alt={this.state.city} />
-          </Card>
-        </div> 
+        
+ {
+      this.state.mapData && (
+        <div className="d-flex align-items-center map-container">
+          <img src={this.state.mapData} alt={this.state.city} />
+        </div>
+      )
+    }
 
         <ul>{weatherData}</ul>
 
