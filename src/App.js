@@ -3,6 +3,7 @@ import "./App.css";
 import axios from "axios";
 // import { Card } from 'react-bootstrap';
 // import Image from 'react-bootstrap/Image
+import { Container, Button, Form } from "react-bootstrap";
 
 
 
@@ -19,7 +20,7 @@ class App extends React.Component {
       displayMap: false,
       displayError: false,
       errorMessage: "",
-      
+
     }
   }
 
@@ -57,7 +58,7 @@ class App extends React.Component {
 
 
   getMapData = async () => {
-    let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&size=${window.innerWidth}x300&format=jpg&zoom=12`;
+    let mapURL = `https://maps.locationiq.com/v3/staticmap?key=${API_KEY}&center=${this.state.cityData.lat},${this.state.cityData.lon}&size=${window.innerWidth}x600&format=jpg&zoom=12`;
 
     let mapDataResponse = await axios.get(mapURL);
     this.setState({
@@ -70,22 +71,23 @@ class App extends React.Component {
 
 
   displayWeather = async (lat, lon, searchQuery) => {
-      console.log(lat, lon, searchQuery);
-
+    console.log(lat, lon, searchQuery);
+    try {
       let weather = await axios.get(`${process.env.REACT_APP_API_URL}/weather`,
-      { params: {  
-          latitude: lat,
-          longitude: lon,
-          searchQuery: searchQuery 
-        } 
+        {
+          params: {
+            latitude: lat,
+            longitude: lon,
+            searchQuery: searchQuery
+          }
+        });
+      console.log('did we get back from the server?', weather);
+      this.setState({
+        weatherData: [weather.data],
       });
-     console.log('did we get back from the server?',weather);
-    //   // this.setState({
-    //   //   weatherData: weather.data,
-    //   // });
-    // } catch (error) {
-    //   console.log(error);
-    // }
+    } catch (error) {
+      console.log(error);
+    }
   };
   ///////
   //   getMovieData = async (search) => {
@@ -97,8 +99,6 @@ class App extends React.Component {
   //   }
   //////
 
-
-
   render() {
 
     Object.entries(this.state.cityData).map(([key, value], index) => {
@@ -109,10 +109,9 @@ class App extends React.Component {
       return <li key={index}> Forecast:{forecast.description} |  Date: {forecast.date}</li>
     });
 
-
     return (
-      
-      <>
+      <Container id="body">
+
         <h1>City Explorer</h1>
         <ul>
           <div>
@@ -121,34 +120,48 @@ class App extends React.Component {
             {this.state.cityData.lon}
             {this.state.displayMap}
           </div>
+
         </ul>
 
-        <form id="form" onSubmit={this.submitCityHandler}>
-          <label>
+        <Form id="form" onSubmit={this.submitCityHandler}>
+          <Form.Label>
             Pick a City:
-            <input type="text" onInput={this.handleCityInput} />
-          </label>
-          <button type="submit">Explore!!</button>
-        </form>
+            <Form.Control type="text" className="textbox" onInput={this.handleCityInput} />
+            <Button type="submit">Explore!!</Button>
+          </Form.Label>
+          
+        </Form>
 
         {/* {
 
           this.state.mapData && <img src={this.state.mapData} alt={this.state.city} />
         } */}
 
-        
- {
-      this.state.mapData && (
-        <div className="d-flex align-items-center map-container">
-          <img src={this.state.mapData} alt={this.state.city} />
-        </div>
-      )
-    }
 
-        <ul>{weatherData}</ul>
+        {
+          this.state.mapData && (
+            <div className="map-container">
+              <img src={this.state.mapData} alt={this.state.city} />
+            </div>
+          )
+        }
 
-      </>
+        {
+          this.state.weatherData.length > 0 && (
+            <div className="weather-section">
+              <h2>Weather Information for {this.state.city}</h2>
+              <ul>
+                {weatherData}
+              </ul>
+              <ul>
+                {weatherData.date}
+              </ul>
+            </div>
+          )
+        }
 
+
+      </Container>
     );
 
   }
