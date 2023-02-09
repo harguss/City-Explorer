@@ -1,9 +1,8 @@
 import React from "react";
 import "./App.css";
 import axios from "axios";
-// import { Card } from 'react-bootstrap';
-// import Image from 'react-bootstrap/Image
 import { Container, Button, Form } from "react-bootstrap";
+// import BackgroundImage from "./BackgroundImage";
 
 
 
@@ -152,9 +151,6 @@ class App extends React.Component {
               <h2>Weather Information for {this.state.city}</h2>
               <ul>
                 {weatherData}
-              </ul>
-              <ul>
-                {weatherData.date}
               </ul>
             </div>
           )
