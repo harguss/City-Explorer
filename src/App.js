@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import axios from "axios";
 import { Container, Button, Form } from "react-bootstrap";
-// import BackgroundImage from "./BackgroundImage";
+import BackgroundImage from "./BackgroundImage";
 
 
 
@@ -88,79 +88,76 @@ class App extends React.Component {
       console.log(error);
     }
   };
-  ///////
-  //   getMovieData = async (search) => {
-  //   const results = await axios.get(`${https://api.themoviedb.org/3/search/movie/?api_key=<{MOVIE_API_KEY}>&language=en-US&page=1&query=seattle}/movieData`, {params: {
-  //       search,
-  //   }
-  // })
-  // console.log(results.data);
-  //   }
-  //////
+  /////
+//   getMovieData = async (search) => {
+//     const results = await axios.get(https://api.themoviedb.org/3/search/movie?api_key=0ec2a83719250e1deafbcd141f8ba7af&language=en-US&page=1&include_adult=false&query=seattle}),
+// console.log(results.data);
+// }
 
-  render() {
 
-    Object.entries(this.state.cityData).map(([key, value], index) => {
-      return <li key={index}>{value.display_name}</li>
-    });
+render() {
 
-    let weatherData = this.state.weatherData.map((forecast, index) => {
-      return <li key={index}> Forecast:{forecast.description} |  Date: {forecast.date}</li>
-    });
+  Object.entries(this.state.cityData).map(([key, value], index) => {
+    return <li key={index}>{value.display_name}</li>
+  });
 
-    return (
-      <Container id="body">
+  let weatherData = this.state.weatherData.map((forecast, index) => {
+    return <li key={index}> Forecast:{forecast.description} |  Date: {forecast.date}</li>
+  });
 
-        <h1>City Explorer</h1>
-        <ul>
-          <div>
-            {this.state.cityData.display_name}
-            {this.state.cityData.lat}
-            {this.state.cityData.lon}
-            {this.state.displayMap}
-          </div>
+  return (
+    <Container id="body">
 
-        </ul>
+      <h1>City Explorer</h1>
+      <ul>
+        <div>
+          {this.state.cityData.display_name}
+          {this.state.cityData.lat}
+          {this.state.cityData.lon}
+          {this.state.displayMap}
+        </div>
 
-        <Form id="form" onSubmit={this.submitCityHandler}>
-          <Form.Label>
-            Pick a City:
-            <Form.Control type="text" className="textbox" onInput={this.handleCityInput} />
-            <Button type="submit">Explore!!</Button>
-          </Form.Label>
-          
-        </Form>
+      </ul>
 
-        {/* {
+      <Form id="form" onSubmit={this.submitCityHandler}>
+        <Form.Label>
+          Pick a City:
+          <Form.Control type="text" className="textbox" onInput={this.handleCityInput} />
+          <Button type="submit">Explore!!</Button>
+        </Form.Label>
+
+      </Form>
+
+      {/* {
 
           this.state.mapData && <img src={this.state.mapData} alt={this.state.city} />
         } */}
 
 
-        {
-          this.state.mapData && (
-            <div className="map-container">
-              <img src={this.state.mapData} alt={this.state.city} />
-            </div>
-          )
-        }
+      {
+        this.state.mapData && (
+          <div className="map-container">
+            <img src={this.state.mapData} alt={this.state.city} />
+          </div>
+        )
+      }
 
-        {
-          this.state.weatherData.length > 0 && (
-            <div className="weather-section">
-              <h2>Weather Information for {this.state.city}</h2>
-              <ul>
-                {weatherData}
-              </ul>
-            </div>
-          )
-        }
+      {
+        this.state.weatherData.length > 0 && (
+          <div className="weather-section">
+            <h2>Weather Information for {this.state.city}</h2>
+            <ul>
+              {weatherData}
+            </ul>
+          </div>
+        )
+      }
 
 
-      </Container>
-    );
+    </Container>
+  );
 
-  }
+}
 }
 
 
