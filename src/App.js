@@ -2,7 +2,7 @@ import React from "react";
 import "./App.css";
 import axios from "axios";
 import { Container, Button, Form } from "react-bootstrap";
-import BackgroundImage from "./BackgroundImage";
+// import BackgroundImage from "./BackgroundImage";
 
 
 
@@ -17,6 +17,7 @@ class App extends React.Component {
       mapData: '',
       weatherData: [],
       displayMap: false,
+      movieObject: [],
       displayError: false,
       errorMessage: "",
 
@@ -39,6 +40,7 @@ class App extends React.Component {
           this.getMapData();
         }
       );
+      this.getMovieData();
     } catch (error) {
       this.setState({
         displayMap: false,
@@ -89,75 +91,75 @@ class App extends React.Component {
     }
   };
   /////
-//   getMovieData = async (search) => {
-//     const results = await axios.get(https://api.themoviedb.org/3/search/movie?api_key=0ec2a83719250e1deafbcd141f8ba7af&language=en-US&page=1&include_adult=false&query=seattle}),
-// console.log(results.data);
-// }
+  getMovieData = async () => {
+    console.log('get movies');
+    const results = await axios.get(`${process.env.REACT_APP_API_URL}/movie?searchQuery=${this.state.city}`);
 
+    console.log("🚀 ~ file: App.js:98 ~ App ~ getMovieData= ~ results", results)
+  }
 
-render() {
+  render() {
 
-  Object.entries(this.state.cityData).map(([key, value], index) => {
-    return <li key={index}>{value.display_name}</li>
-  });
+    Object.entries(this.state.cityData).map(([key, value], index) => {
+      return <li key={index}>{value.display_name}</li>
+    });
 
-  let weatherData = this.state.weatherData.map((forecast, index) => {
-    return <li key={index}> Forecast:{forecast.description} |  Date: {forecast.date}</li>
-  });
+    let weatherData = this.state.weatherData.map((forecast, index) => {
+      return <li key={index}> Forecast:{forecast.description} |  Date: {forecast.date}</li>
+    });
 
-  return (
-    <Container id="body">
+    return (
+      <Container id="body">
 
-      <h1>City Explorer</h1>
-      <ul>
-        <div>
-          {this.state.cityData.display_name}
-          {this.state.cityData.lat}
-          {this.state.cityData.lon}
-          {this.state.displayMap}
-        </div>
+        <h1>City Explorer</h1>
+        <ul>
+          <div>
+            {this.state.cityData.display_name}
+            {this.state.cityData.lat}
+            {this.state.cityData.lon}
+            {this.state.displayMap}
+          </div>
 
-      </ul>
+        </ul>
 
-      <Form id="form" onSubmit={this.submitCityHandler}>
-        <Form.Label>
-          Pick a City:
-          <Form.Control type="text" className="textbox" onInput={this.handleCityInput} />
-          <Button type="submit">Explore!!</Button>
-        </Form.Label>
+        <Form id="form" onSubmit={this.submitCityHandler}>
+          <Form.Label>
+            Pick a City:
+            <Form.Control type="text" className="textbox" onInput={this.handleCityInput} />
+            <Button type="submit" variant="outline-info">Explore!</Button>{' '}
+          </Form.Label>
 
-      </Form>
+        </Form>
 
-      {/* {
-
+        {/* {
           this.state.mapData && <img src={this.state.mapData} alt={this.state.city} />
         } */}
 
 
-      {
-        this.state.mapData && (
-          <div className="map-container">
-            <img src={this.state.mapData} alt={this.state.city} />
-          </div>
-        )
-      }
+        {
+          this.state.mapData && (
+            <div className="map-container">
+              <img src={this.state.mapData} alt={this.state.city} />
+            </div>
+          )
+        }
 
-      {
-        this.state.weatherData.length > 0 && (
-          <div className="weather-section">
-            <h2>Weather Information for {this.state.city}</h2>
-            <ul>
-              {weatherData}
-            </ul>
-          </div>
-        )
-      }
+        {
+          this.state.weatherData.length > 0 && (
+            <div className="weather-section">
+              <h2>Weather Information for {this.state.city}</h2>
+              <ul>
+                {weatherData}
+              </ul>
+            </div>
+          )
+        }
 
 
-    </Container>
-  );
+      </Container>
+    );
 
-}
+  }
 }
 
 
