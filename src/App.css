@@ -20,8 +20,8 @@
 }
 
 .map-container {
-  width: 550px;
-  height: 550px;
+  width: 650px;
+  height: 650px;
   border-radius: 275px;
   overflow: hidden;
   border: 10px solid rgb(25, 57, 82);
