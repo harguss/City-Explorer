@@ -2,11 +2,15 @@ import React from "react";
 import "./App.css";
 import axios from "axios";
 import { Container, Button, Form } from "react-bootstrap";
-// import BackgroundImage from "./BackgroundImage";
+// import Weather from './Weather.js';
+import Movies from './Movies.js';
+import 'bootstrap/dist/css/bootstrap.min.css';
+import worldMap from "./data/images/circleEarth.png";
 
-
-
+let SERVER_API = process.env.REACT_APP_API_URL;
+console.log("Server api", SERVER_API);
 let API_KEY = process.env.REACT_APP_LOCATION_KEY;
+
 
 class App extends React.Component {
   constructor(props) {
@@ -16,16 +20,17 @@ class App extends React.Component {
       cityData: {},
       mapData: '',
       weatherData: [],
-      displayMap: false,
-      movieObject: [],
+      displayMap: {},
       displayError: false,
       errorMessage: "",
+      movieData: [],
 
     }
   }
 
   submitCityHandler = async (event) => {
     event.preventDefault();
+    console.log("hi");
     try {
       let url = `https://us1.locationiq.com/v1/search?key=${API_KEY}&q=${this.state.city}&format=json`;
 
@@ -41,7 +46,9 @@ class App extends React.Component {
         }
       );
       this.getMovieData();
+
     } catch (error) {
+      console.error()
       this.setState({
         displayMap: false,
         error: true,
@@ -96,6 +103,9 @@ class App extends React.Component {
     const results = await axios.get(`${process.env.REACT_APP_API_URL}/movie?searchQuery=${this.state.city}`);
 
     console.log("🚀 ~ file: App.js:98 ~ App ~ getMovieData= ~ results", results)
+    this.setState({
+      movieData: [...results.data]
+    })
   }
 
   render() {
@@ -108,8 +118,15 @@ class App extends React.Component {
       return <li key={index}> Forecast:{forecast.description} |  Date: {forecast.date}</li>
     });
 
+    let movies = this.state.movieData.map((movie, index) => {
+      return <img key={index} src={movie.imageUrl} alt={movie.title} />;
+    });
+
+
+
     return (
-      <Container id="body">
+      <div id="body">
+       <Container>
 
         <h1>City Explorer</h1>
         <ul>
@@ -117,7 +134,6 @@ class App extends React.Component {
             {this.state.cityData.display_name}
             {this.state.cityData.lat}
             {this.state.cityData.lon}
-            {this.state.displayMap}
           </div>
 
         </ul>
@@ -130,14 +146,14 @@ class App extends React.Component {
           </Form.Label>
 
         </Form>
-
+        
         {/* {
           this.state.mapData && <img src={this.state.mapData} alt={this.state.city} />
-        } */}
-
-
+        }  */}
+         <img src={worldMap} alt="line drawing of the earth" width='60%'/>
         {
           this.state.mapData && (
+            // eslint-disable-next-line react/style-prop-object
             <div className="map-container">
               <img src={this.state.mapData} alt={this.state.city} />
             </div>
@@ -154,10 +170,23 @@ class App extends React.Component {
             </div>
           )
         }
+        {
+          this.state.movieData.length > 0 && (
+            <div className="movie-section">
+              <h2>Movie Information for {this.state.city}</h2>
+              <ul>
+               <Movies movies={this.state.movieData}/>
+              </ul>
+            </div>
+          )
+        }
+
 
 
       </Container>
+      </div>
     );
+
 
   }
 }

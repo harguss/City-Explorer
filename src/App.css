@@ -3,15 +3,16 @@
   text-align: center;
   color: white;
   font-size: 25px;
-  background-color: #20556b;
-  background-image: url('./data/images/circleEarth.png');
+  /* background-color: #20556b; */
+  background: linear-gradient(#0077be, #20556b);
+  /* background-image: url('./data/images/circleEarth.png'); */
   background-repeat: no-repeat;
   background-position: center 35px;
   background-size: cover;
-  width: 100%;
-  height: 100%;
-  padding: 1rem;
+  width: 100vw;
   height: 100vh;
+  padding: 1rem;
+
 }
 
 #body h1 {
@@ -25,8 +26,14 @@
   overflow: hidden;
   border: 10px solid rgb(25, 57, 82);
   display: flex;
+  align-items: center;
   margin: -55px auto;
+  position: absolute;
+  top: 65%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
+
 
 .weather-section {
   color: white;
