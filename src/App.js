@@ -115,7 +115,9 @@ class App extends React.Component {
     });
 
     let weatherData = this.state.weatherData.map((forecast, index) => {
-      return <li key={index}> Forecast:{forecast.description} |  Date: {forecast.date}</li>
+      return <li key={index}> Forecast:{forecast.description}    {forecast.date}</li>
+
+
     });
 
     let movies = this.state.movieData.map((movie, index) => {
@@ -126,65 +128,69 @@ class App extends React.Component {
 
     return (
       <div id="body">
-       <Container>
+        <Container>
 
-        <h1>City Explorer</h1>
-        <ul>
-          <div>
-            {this.state.cityData.display_name}
-            {this.state.cityData.lat}
-            {this.state.cityData.lon}
-          </div>
+          <h1>City Explorer</h1>
+          <ul>
+            <div>
+              {this.state.cityData.display_name}
+              {this.state.cityData.lat}
+              {this.state.cityData.lon}
+            </div>
 
-        </ul>
+          </ul>
 
-        <Form id="form" onSubmit={this.submitCityHandler}>
-          <Form.Label>
-            Pick a City:
-            <Form.Control type="text" className="textbox" onInput={this.handleCityInput} />
-            <Button type="submit" variant="outline-info">Explore!</Button>{' '}
-          </Form.Label>
+          <Form id="form" onSubmit={this.submitCityHandler}>
+            <Form.Label>
+              Pick a City:
+              <Form.Control type="text" className="textbox" onInput={this.handleCityInput} />
+              <Button type="submit" variant="outline-info">Explore!</Button>{' '}
+            </Form.Label>
 
-        </Form>
-        
-        {/* {
+          </Form>
+
+          {/* {
           this.state.mapData && <img src={this.state.mapData} alt={this.state.city} />
         }  */}
-         <img src={worldMap} alt="line drawing of the earth" width='60%'/>
-        {
-          this.state.mapData && (
-            // eslint-disable-next-line react/style-prop-object
-            <div className="map-container">
-              <img src={this.state.mapData} alt={this.state.city} />
-            </div>
-          )
-        }
+          <img src={worldMap} alt="line drawing of the earth" width='60%' />
+          {
+            this.state.mapData && (
+              // eslint-disable-next-line react/style-prop-object
+              <div className="map-container">
+                <img src={this.state.mapData} alt={this.state.city} />
+              </div>
+            )
+          }
 
-        {
-          this.state.weatherData.length > 0 && (
-            <div className="weather-section">
-              <h2>Weather Information for {this.state.city}</h2>
-              <ul>
-                {weatherData}
-              </ul>
+          {
+            this.state.weatherData.length > 0 && (
+              <div className="weather-section">
+                   <Container>
+                <h2>Weather information for {this.state.city}</h2>
+                <ul>
+                  {weatherData}
+                </ul>
+                </Container>
+              </div>
+            )
+          }
+          {
+            this.state.movieData.length > 0 && (
+              <div className="movie-section">
+                <Container ClassName="movieContainer">
+                <h2>Movies featuring  {this.state.city}</h2>
+                <ul>
+                  <Movies movies={this.state.movieData} />
+                </ul>
+              </Container>
             </div>
-          )
-        }
-        {
-          this.state.movieData.length > 0 && (
-            <div className="movie-section">
-              <h2>Movie Information for {this.state.city}</h2>
-              <ul>
-               <Movies movies={this.state.movieData}/>
-              </ul>
-            </div>
-          )
-        }
+    )
+  }
 
 
 
       </Container>
-      </div>
+      </div >
     );
 
 

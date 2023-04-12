@@ -3,51 +3,84 @@
   text-align: center;
   color: white;
   font-size: 25px;
-  /* background-color: #20556b; */
   background: linear-gradient(#0077be, #20556b);
-  /* background-image: url('./data/images/circleEarth.png'); */
-  background-repeat: no-repeat;
-  background-position: center 35px;
-  background-size: cover;
   width: 100vw;
   height: 100vh;
   padding: 1rem;
+  overflow: auto;
 
 }
 
 #body h1 {
   font-size: 60px;
 }
+h2 {
+  font-size: 40px;
+}
 
 .map-container {
-  width: 650px;
-  height: 650px;
-  border-radius: 275px;
+  width: 50vw;
+  height: 70vh;
+  border-radius: 5vw;
   overflow: hidden;
   border: 10px solid rgb(25, 57, 82);
   display: flex;
-  align-items: center;
-  margin: -55px auto;
-  position: absolute;
-  top: 65%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  align-items: right;
+  /* margin: -55px auto; */
+  /* position: absolute; */
+  /* top: 65%; */
+  /* left: 50%; */
+  /* transform: translate(-50%, -50%); */
 }
 
 
 .weather-section {
   color: white;
-  margin:75px auto;
+  display: flex !important;
+  font-size: 20px;
+  /* flex-direction: column !important; */
+  justify-content: left !important;
+  /* margin-right: 75%; */
+  width: 20%;
+  padding: auto;
+  border-radius: 5vw;
+  border-color: antiquewhite;
+  border: white;
 
+}
+.movieContainer {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: right !important;
+  width: 30%;
+  padding: 1rem;
+  font-size: 30px; 
 }
 
 
 .textbox {
   text-align: center;
   /* color: white; */
-  color: rgb(25, 57, 82);
-  font-size: 20px;
+  /* background-color: rgb(25, 57, 82); */
+  font-size: 40px;
   display: flex;
-  flex-direction: column;
+
   align-items: center;
+}
+
+.form-control {
+  background-color: transparent !important;
+  border: none !important;
+  color: white !important;
+}
+
+.movie-section {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: right !important;
+  
+ 
+  width: 30%;
+  font-size: 30px;
+  /* padding: auto; */
 }
