@@ -120,9 +120,9 @@ class App extends React.Component {
 
     });
 
-    let movies = this.state.movieData.map((movie, index) => {
-      return <img key={index} src={movie.imageUrl} alt={movie.title} />;
-    });
+    // let movies = this.state.movieData.map((movie, index) => {
+    //   return <img key={index} src={movie.imageUrl} alt={movie.title} />;
+    // });
 
 
 
